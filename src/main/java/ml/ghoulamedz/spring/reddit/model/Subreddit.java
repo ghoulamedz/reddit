@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.Instant;
 import java.util.List;
@@ -19,6 +16,8 @@ import java.util.List;
 @Entity
 @Builder
 public class Subreddit {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long subredditId;
     @NotBlank(message = "Community name cannot be empty!")
     private String subredditName;

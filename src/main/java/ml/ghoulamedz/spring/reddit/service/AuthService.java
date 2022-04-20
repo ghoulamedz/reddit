@@ -27,9 +27,7 @@ public class AuthService {
     private final MailService mailService;
     private final MailContentBuilder mailContentBuilder;
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+    //public List<User> getAllUsers() {return userRepository.findAll();}
     @Transactional
     public void registerUser(RegisterRequest registerRequest) {
         User user = new User();
@@ -45,7 +43,7 @@ public class AuthService {
         mailService.sendMail(new NotificationEmail("Please Activate your account", user.getEmail(), message));
     }
     @Transactional
-    public String generateVerificationToken(User user){
+    private String generateVerificationToken(User user){
         String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setToken(token);

@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment,Long> {
-    List<Comment> findAllByCommentAuthor(User commentAuthor);
-    List<Comment> findAllByPost(Post post);
+    //List<Comment> findAllByCommentAuthor(User commentAuthor);
+    //List<Comment> findAllByPost(Post post);
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface VoteRepository extends JpaRepository<Vote,Long> {
-    List<Vote> findAllByPost(Post post);
-    List<Vote> findAllByVoteAuthor(User voteAuthor);
+    //List<Vote> findAllByPost(Post post);
+    //List<Vote> findAllByVoteAuthor(User voteAuthor);
 
 }

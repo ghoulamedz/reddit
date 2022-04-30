@@ -13,8 +13,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) {}
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/api/auth").permitAll();
-        http.authorizeRequests().anyRequest().authenticated();
         http.csrf().disable();
+        http.authorizeRequests()
+                .antMatchers("/api/auth/signup","/api/auth/verifyAccount","/api/auth/db")
+                .permitAll();
+        http.authorizeRequests().anyRequest().authenticated();
+
     }
 }

@@ -17,15 +17,16 @@ import java.util.List;
 @Builder
 public class Subreddit {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subredditId;
-    @NotBlank(message = "Community name cannot be empty!")
+    //@NotBlank(message = "Community name cannot be empty!")
     private String subredditName;
-    @NotBlank(message = "Community description cannot be empty!")
+    //@NotBlank(message = "Community description cannot be empty!")
     private String subredditDescription;
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Post> postList;
-    private Instant createdDate;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User subredditAuthor;
+    //@OneToMany(fetch = FetchType.LAZY)
+    //private List<Post> postList;
+    //private Instant createdDate;
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "userSubreddits", referencedColumnName = "subreddits")
+    //private User subredditAuthor;
 }

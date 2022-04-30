@@ -9,6 +9,6 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface SubredditRepository extends JpaRepository<Subreddit,Long> {
-    Optional<Subreddit> findBySubredditName(String subredditName);
-    List<Subreddit> findAllBySubredditAuthor(User subredditAuthor);
+    //Optional<Subreddit> findBySubredditName(String subredditName);
+    //List<Subreddit> findAllBySubredditAuthor(User subredditAuthor);
 }

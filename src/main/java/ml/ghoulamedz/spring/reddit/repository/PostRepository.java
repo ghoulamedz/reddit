@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post,Long> {
-    List<Post> findAllByPostAuthor(User postAuthor);
-    List<Post> findAllBySubreddit(Subreddit subreddit);
+    //List<Post> findAllByPostAuthor(User postAuthor);
+    //List<Post> findAllBySubreddit(Subreddit subreddit);
 }

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
 @Data
 @AllArgsConstructor
@@ -16,16 +15,16 @@ import java.time.Instant;
 @Builder
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
     @Nullable
     @Lob
     private String commentText;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    //@JoinColumn(name = "userComments", referencedColumnName = "comments")
     private User commentAuthor;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "postId", referencedColumnName = "postId")
-    private Post post;
-    private Instant createdDate;
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "postComments", referencedColumnName = "comments")
+    //private Post post;
+    //private Instant createdDate;
 }

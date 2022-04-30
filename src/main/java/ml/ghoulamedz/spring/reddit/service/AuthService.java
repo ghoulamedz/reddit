@@ -27,7 +27,7 @@ public class AuthService {
     private final MailService mailService;
     private final MailContentBuilder mailContentBuilder;
 
-    //public List<User> getAllUsers() {return userRepository.findAll();}
+    public List<User> getAllUsers() {return userRepository.findAll();}
     @Transactional
     public void registerUser(RegisterRequest registerRequest) {
         User user = new User();

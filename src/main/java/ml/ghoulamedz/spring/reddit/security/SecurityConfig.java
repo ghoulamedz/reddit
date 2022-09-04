@@ -1,23 +1,47 @@
 package ml.ghoulamedz.spring.reddit.security;
 
-import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) {}
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.authorizeRequests()
-                .antMatchers("/api/auth/signup","/api/auth/verifyAccount","/api/auth/db")
-                .permitAll();
-        http.authorizeRequests().anyRequest().authenticated();
+public class SecurityConfig {
 
-    }
+        @Bean
+        PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
+
+        @Bean
+        @Order(1)
+        public SecurityFilterChain myFilter(HttpSecurity http) throws Exception {
+                http.authorizeRequests(
+                                auth -> auth.antMatchers("/api/auth/db", "/api/auth/admin")
+                                                .hasAuthority("ROLE_ADMIN")
+                                                .antMatchers("/api/auth/signup",
+                                                                "/api/auth/verifyAccount/**",
+                                                                "/api/auth/login")
+                                                .permitAll()
+                                                .anyRequest()
+                                                .authenticated())
+                                // .addFilter(null)
+                                // .formLogin(form -> form
+                                // .usernameParameter("username")
+                                // .passwordParameter("password")
+                                // .loginPage("/api/auth/login").failureUrl("/api/auth/signup"))
+                                // .logout(logout -> logout.logoutUrl("/api/auth/logout")
+                                // .clearAuthentication(true)
+                                // .deleteCookies("JSESSIONID"))
+                                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                                                .maximumSessions(1)
+                                                .maxSessionsPreventsLogin(true))
+                                .apply(MyCustomDsl.customDsl());
+                return http.build();
+
+        }
 }

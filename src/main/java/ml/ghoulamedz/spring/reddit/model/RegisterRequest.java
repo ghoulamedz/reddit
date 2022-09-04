@@ -1,4 +1,4 @@
-package ml.ghoulamedz.spring.reddit.security;
+package ml.ghoulamedz.spring.reddit.model;
 
 import lombok.Data;
 

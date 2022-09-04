@@ -14,21 +14,20 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MailService {
-    private final MailContentBuilder mailContentBuilder;
     private final JavaMailSender javaMailSender;
 
-    void sendMail(NotificationEmail notificationEmail){
+    void sendMail(NotificationEmail notificationEmail) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setFrom("reddit_admin@email.com");
             messageHelper.setTo(notificationEmail.getRecipient());
             messageHelper.setSubject(notificationEmail.getSubject());
-            messageHelper.setText(mailContentBuilder.build(notificationEmail.getBody()));
+            messageHelper.setText(notificationEmail.getBody().toString());
         };
         try {
             javaMailSender.send(messagePreparator);
             log.info("Activation email sent!");
-        } catch (MailException mailException){
+        } catch (MailException mailException) {
             throw new RedditException("Exception occurred when sending mail to " + notificationEmail.getRecipient());
         }
     }

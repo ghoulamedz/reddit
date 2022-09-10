@@ -35,10 +35,4 @@ public class AuthController {
         return ResponseEntity.ok("Account activated successfully");
     }
 
-    @GetMapping("/logout")
-    public ResponseEntity<String> logout() {
-        authService.logout();
-        return ResponseEntity.ok("Logged out successfuly");
-    }
-
 }
